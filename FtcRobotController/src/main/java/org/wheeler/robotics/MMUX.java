@@ -88,9 +88,13 @@ public class MMUX {
     }
 
     public synchronized byte[] read (int memAddress, int memLength) {
-        while (legacyModule.isI2cPortReady(portNumber)==false) {}
+        Lock readLock = legacyModule.getI2cReadCacheLock(portNumber);
         legacyModule.enableNxtI2cReadMode(portNumber, i2cAddress, memAddress, memLength);
-        return legacyModule.readLegacyModuleCache(portNumber);
+        legacyModule.readI2cCacheFromModule(portNumber);
+        readLock.lock();
+        byte[] cacheVal = legacyModule.getI2cReadCache(portNumber);
+        readLock.unlock();
+        return cacheVal;
     }
 
 
