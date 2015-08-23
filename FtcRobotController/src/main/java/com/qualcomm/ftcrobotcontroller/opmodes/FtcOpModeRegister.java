@@ -34,8 +34,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.wheeler.robotics.MMUX;
-import org.wheeler.robotics.MMUXTest;
+import org.wheeler.robotics.MMUXController.MMUXTest;
 
 /**
  * Register Op Modes
@@ -100,6 +99,9 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("PushBotDriveTouch", PushBotDriveTouch.class);
     manager.register("PushBotIrSeek", PushBotIrSeek.class);
     manager.register("PushBotSquare", PushBotSquare.class);
+
+
+
     manager.register("MMUXTest", MMUXTest.class);
 
   }
