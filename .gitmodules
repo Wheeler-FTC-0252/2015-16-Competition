@@ -1,3 +1,6 @@
 [submodule "FtcRobotController/src/main/java/org/wheeler/robotics/MMUXController"]
 	path = FtcRobotController/src/main/java/org/wheeler/robotics/MMUXController
 	url = https://github.com/Wheeler-FTC-0252/MMUXController.git
+[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/SensorTests"]
+	path = FtcRobotController/src/main/java/org/wheeler/robotics/SensorTests
+	url = https://github.com/Wheeler-FTC-0252/SensorTests.git
