@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.wheeler.robotics.MMUXController.MMUXTest;
+import org.wheeler.robotics.SensorTests.TouchSensorTest;
 
 /**
  * Register Op Modes
@@ -103,6 +104,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
     manager.register("MMUXTest", MMUXTest.class);
+    manager.register("MMUXTest", TouchSensorTest.class);
 
   }
 }
