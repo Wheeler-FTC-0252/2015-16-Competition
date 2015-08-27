@@ -4,3 +4,6 @@
 [submodule "FtcRobotController/src/main/java/org/wheeler/robotics/SensorTests"]
 	path = FtcRobotController/src/main/java/org/wheeler/robotics/SensorTests
 	url = https://github.com/Wheeler-FTC-0252/SensorTests.git
+[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/MiniBot"]
+	path = FtcRobotController/src/main/java/org/wheeler/robotics/MiniBot
+	url = https://github.com/Wheeler-FTC-0252/MiniBot.git
