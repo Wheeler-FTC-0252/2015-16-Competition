@@ -106,7 +106,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("MMUXTest", MMUXTest.class);
     manager.register("TouchSensorTest", TouchSensorTest.class);
     manager.register("OpticalDistanceSensorTest", OpticalDistanceSensorTest.class);
-    manager.register("motorTest", motorTest.class);
+    manager.register("MotorTest", MotorTest.class);
+    manager.register("ReadGamepad", ReadGamepad.class);
 
   }
 }
