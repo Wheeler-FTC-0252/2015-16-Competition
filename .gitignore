@@ -23,4 +23,7 @@ Thumbs.db
 .idea
 .gradle
 build/
-*.iml
+
+*ASUS_PC_01*
+
+.gitignore
