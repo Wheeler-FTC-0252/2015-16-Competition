@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.wheeler.robotics.MMUXController.MMUXTest;
 import org.wheeler.robotics.MiniBot.*;
+import org.wheeler.robotics.OldCompetitionBot.OldCompetitionBotDrive;
 import org.wheeler.robotics.SensorTests.*;
 
 /**
@@ -111,5 +112,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("ReadGamepad", ReadGamepad.class);
     manager.register("MiniBotDrive", MiniBotDrive.class);
     manager.register("MiniBotAutonomous", MiniBotAutonomous.class);
+    manager.register("OldCompetitionBotDrive", OldCompetitionBotDrive.class);
   }
 }
