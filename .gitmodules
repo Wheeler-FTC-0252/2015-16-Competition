@@ -1,15 +1,1 @@
-[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/MMUXController"]
-	path = FtcRobotController/src/main/java/org/wheeler/robotics/MMUXController
-	url = https://github.com/Wheeler-FTC-0252/MMUXController.git
-[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/SensorTests"]
-	path = FtcRobotController/src/main/java/org/wheeler/robotics/SensorTests
-	url = https://github.com/Wheeler-FTC-0252/SensorTests.git
-[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/MiniBot"]
-	path = FtcRobotController/src/main/java/org/wheeler/robotics/MiniBot
-	url = https://github.com/Wheeler-FTC-0252/MiniBot.git
-[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/Old-Competition-Bot"]
-	path = FtcRobotController/src/main/java/org/wheeler/robotics/Old-Competition-Bot
-	url = https://github.com/Wheeler-FTC-0252/Old-Competition-Bot.git
-[submodule "FtcRobotController/src/main/java/org/wheeler/robotics/OldCompetitionBot"]
-	path = FtcRobotController/src/main/java/org/wheeler/robotics/OldCompetitionBot
-	url = https://github.com/Wheeler-FTC-0252/OldCompetitionBot.git
+
