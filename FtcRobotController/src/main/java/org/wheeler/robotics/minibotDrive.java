@@ -17,6 +17,8 @@ public class minibotDrive extends OpMode {
     double leftJoystick;
     double oldRightJoystick=0;
     double rightJoystick;
+    double armControl=0;
+    DcMotor armMotor;
     boolean autoMode=false;
     boolean oldAutoMode=false;
 
@@ -27,7 +29,7 @@ public class minibotDrive extends OpMode {
         }
         oldAutoMode=autoMode;
     }
-    private void noScope360(boolean left){
+    /*private void noScope360(boolean left){
         int multiplier=0;
         double spinSpeed=1;
         autoMode=true;
@@ -51,11 +53,12 @@ public class minibotDrive extends OpMode {
 
     public void left360NoScope(){
         noScope360(true);
-    }
+    }*/
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
+        armMotor = hardwareMap.dcMotor.get("arm");
     }
     public void loop(){
         telemetry.addData("autoMode",autoMode);
@@ -79,7 +82,7 @@ public class minibotDrive extends OpMode {
 
         }
 
-        leftBumper=gamepad1.left_bumper;
+        /*leftBumper=gamepad1.left_bumper;
         rightBumper=gamepad1.right_bumper;
         if(leftBumper && leftBumper!=oldLeftBumper){
             left360NoScope();
@@ -88,6 +91,9 @@ public class minibotDrive extends OpMode {
         else if(rightBumper && rightBumper!=oldRightBumper){
             right360NoScope();
             oldRightBumper=rightBumper;
-        }
+        }*/
+        armControl=gamepad2.left_stick_y;
+        telemetry.addData("arm", armControl);
+        armMotor.setPower(armControl);
     }
 }
