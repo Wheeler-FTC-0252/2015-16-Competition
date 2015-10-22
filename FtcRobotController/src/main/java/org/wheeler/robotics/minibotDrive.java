@@ -13,7 +13,7 @@ public class minibotDrive extends OpMode {
     double leftJoystick;
     double oldRightJoystick=0;
     double rightJoystick;
-    double joystickGain=0.5;
+    double joystickGain=1;
 
     public void init(){
         leftMotors= new DcMotor[] {hardwareMap.dcMotor.get("fL"),hardwareMap.dcMotor.get("bL")};
