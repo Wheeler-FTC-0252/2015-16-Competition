@@ -13,6 +13,8 @@ public class drive extends OpMode {
     double rightMotorSpeed;
     DcMotor armMotor;
     double armMotorSpeed;
+    DcMotor liftArmMotor;
+    double liftArmMotorSpeed;
 
 
     public void init(){
@@ -23,6 +25,7 @@ public class drive extends OpMode {
                 hardwareMap.dcMotor.get("bR")};
 
         armMotor=hardwareMap.dcMotor.get("arm");
+        liftArmMotor=hardwareMap.dcMotor.get("liftArm");
     }
 
     public void setMotorArray(DcMotor[] motors, double power){
@@ -46,8 +49,12 @@ public class drive extends OpMode {
         telemetry.addData("rightMotors: ", rightMotorSpeed);
 
         //Arm Motors
-        armMotorSpeed=gamepad2.right_stick_y;
+        armMotorSpeed=gamepad2.left_stick_y;
         armMotor.setPower(armMotorSpeed);
         telemetry.addData("armMotor: ", armMotorSpeed);
+        //Arm Lift Motors (Angle)
+        liftArmMotorSpeed=gamepad2.right_stick_y;
+        liftArmMotor.setPower(liftArmMotorSpeed);
+        telemetry.addData("liftArmMotor: ", liftArmMotorSpeed);
     }
 }
