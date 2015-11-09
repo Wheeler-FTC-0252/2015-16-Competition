@@ -1,4 +1,4 @@
-package org.wheeler.robotics.I2c;
+package org.wheeler.robotics.i2c;
 
 import com.qualcomm.robotcore.hardware.LegacyModule;
 
