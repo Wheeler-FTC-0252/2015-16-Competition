@@ -13,6 +13,7 @@ public class drive extends OpMode {
     double rightMotorSpeed;
     DcMotor armMotor;
     double armMotorSpeed;
+    double armMotorGain=0.125;
     DcMotor liftArmMotor;
     double liftArmMotorSpeed;
 
@@ -49,7 +50,7 @@ public class drive extends OpMode {
         telemetry.addData("rightMotors: ", rightMotorSpeed);
 
         //Arm Motors (Angle)
-        armMotorSpeed=gamepad2.right_stick_y;
+        armMotorSpeed=gamepad2.right_stick_y*armMotorGain;
         armMotor.setPower(armMotorSpeed);
         telemetry.addData("armMotor: ", armMotorSpeed);
         //Arm Lift Motors
