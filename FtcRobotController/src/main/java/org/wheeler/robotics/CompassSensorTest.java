@@ -1,7 +1,7 @@
 package org.wheeler.robotics;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.wheeler.robotics.I2c.LegacyModuleI2cDevice;
+import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
 /**
  * Created by lucien on 11/9/15.
  */
