@@ -21,7 +21,6 @@ public class LegacyModuleI2cDevice {
         legacyModule.enableI2cWriteMode(port, i2cAddress, memAddress, data.length);
         legacyModule.copyBufferIntoWriteBuffer(port, data);
         legacyModule.setI2cPortActionFlag(port);
-        //compassModule.writeI2cCacheToController(port);
     }
     public void writeByte(int memAddress, byte data){
         byte[] dataArray= {data};
@@ -31,7 +30,6 @@ public class LegacyModuleI2cDevice {
     public byte[] read(int memAddress, int length){
         while(legacyModule.isI2cPortInReadMode(port)){}
         legacyModule.enableI2cReadMode(port, i2cAddress, memAddress, length);
-        //compassModule.readI2cCacheFromController(port);
         return legacyModule.getCopyOfReadBuffer(port);
     }
     public byte readByte(int memAddress){
