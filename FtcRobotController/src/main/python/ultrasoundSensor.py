@@ -1,7 +1,7 @@
 import smbus
 import time
 
-DEFAULT={'busNumb':1, 'address':0x29}
+DEFAULT={'busNumb':1, 'address':70}
 ADDRESSES={'write':224,'read':225}
 
 class ultrasoundSensor:
