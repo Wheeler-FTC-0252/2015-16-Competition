@@ -1,7 +1,7 @@
 import smbus
 import time
 
-DEFAULT={'busNumb':1, 'address':70}
+DEFAULT={'busNumb':1, 'address':0x70}
 ADDRESSES={'write':224,'read':225}
 VALUES={'readStart':81}
 
