@@ -4,6 +4,7 @@ import time
 DEFAULT={'busNumb':1, 'address':0x70}
 ADDRESSES={'write':224,'read':225}
 VALUES={'readStart':81}
+TEST_TIME=0.3
 
 class ultrasoundSensor:
     def __init__(self, address=DEFAULT['address'], busNumb=DEFAULT['busNumb']):
@@ -12,5 +13,5 @@ class ultrasoundSensor:
 
     def readDistance(self):
         self.BUS.write_byte_data(self.ADDRESS, ADDRESSES['write'], VALUES['readStart'])
-        time.sleep(0.1)
+        time.sleep(TEST_TIME)
         return self.BUS.read_word_data(self.ADDRESS, ADDRESSES['read'])
