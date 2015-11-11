@@ -10,7 +10,7 @@ class ultrasoundSensor:
         self.BUS = smbus.SMBus(busNumb)
         self.ADDRESS=address
 
-    def readDistance():
+    def readDistance(self):
         self.BUS.write_byte_data(self.ADDRESS, ADDRESSES['write'], VALUES['readStart'])
         time.sleep(0.1)
         return self.BUS.read_word_data(self.ADDRESS, ADDRESSES['read'])
