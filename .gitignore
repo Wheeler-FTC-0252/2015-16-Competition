@@ -24,5 +24,6 @@ Thumbs.db
 .gradle
 build/
 
-*ASUS_PC_01*
+*.pyc
 
+*ASUS_PC_01*
