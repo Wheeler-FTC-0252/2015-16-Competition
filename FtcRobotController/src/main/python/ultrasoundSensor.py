@@ -13,4 +13,4 @@ class ultrasoundSensor:
     def readDistance():
         self.BUS.write_byte_data(self.ADDRESS, ADDRESSES['write'], VALUES['readStart'])
         time.sleep(0.1)
-        return self.BUS.read_byte_data(self.ADDRESS, ADDRESSES['read'])
+        return self.BUS.read_word_data(self.ADDRESS, ADDRESSES['read'])
