@@ -34,7 +34,7 @@ public class LegacyModuleI2cDevice {
     }
 
     public void writeShort(int memAddress, short data){
-        write(memAddress,ByteBuffer.allocate(2).putShort(data).array());
+        write(memAddress, ByteBuffer.allocate(2).putShort(data).array());
         //writing array made from short
     }
 
@@ -45,17 +45,26 @@ public class LegacyModuleI2cDevice {
         return legacyModule.getCopyOfReadBuffer(port);
     }
 
-    public byte readByte(int memAddress) throws Exception{
+    public byte readByte(int memAddress) throws Exception {
         byte[] values=read(memAddress, 1);
-        if(values.length > 0){
+        if(values.length == 1){
             return read(memAddress, 1)[0];
         }
-
-        //TODO: find better way to do the empty read catching
-        throw new Exception("Read did not return any values");
+        if(values.length == 0){
+            throw new Exception("Read no values");
+        }
+        
+        throw new Exception("Read more than one value");
     }
 
-    public short readShort(int memAddress){
-        return ByteBuffer.wrap(read(memAddress, 2)).getShort();
+    public short readShort(int memAddress) throws Exception {
+        byte[] values=read(memAddress, 2);
+        if(values.length==2){
+            return ByteBuffer.wrap(values).getShort();
+        }
+        else if(values.length<2){
+            throw new Exception("Read to little values");
+        }
+        throw new Exception("Read to many values");
     }
 }
