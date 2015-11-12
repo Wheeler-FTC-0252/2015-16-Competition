@@ -51,6 +51,7 @@ public class LegacyModuleI2cDevice {
             return read(memAddress, 1)[0];
         }
 
+        //TODO: find better way to do the empty read catching
         throw new Exception("Read did not return any values");
     }
 
