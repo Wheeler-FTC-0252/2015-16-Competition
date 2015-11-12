@@ -11,7 +11,7 @@ class ultrasoundSensor:
         self.BUS = smbus.SMBus(busNumb)
         self.ADDRESS=address
 
-    def rawToDistance(int value):
+    def rawToDistance(value):
         return (value/256)+5
 
     def readRaw(self):
