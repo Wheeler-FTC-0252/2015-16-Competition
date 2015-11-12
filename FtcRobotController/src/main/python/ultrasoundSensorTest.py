@@ -3,4 +3,5 @@ import ultrasoundSensor
 uSensor=ultrasoundSensor.ultrasoundSensor()
 
 while(True):
-    print "Raw: " + str(uSensor.readRaw()) + ", cm: " + str(uSensor.readDistance())
+    value=uSensor.readRaw()
+    print "Raw: " + str(value) + ", cm: " + str(uSensor.rawToDistance(value))
