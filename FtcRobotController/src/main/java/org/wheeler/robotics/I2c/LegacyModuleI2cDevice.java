@@ -2,6 +2,12 @@ package org.wheeler.robotics.i2c;
 
 import com.qualcomm.robotcore.hardware.LegacyModule;
 
+import java.nio.ByteBuffer;
+/*
+Short/Byte conversions where helped by:
+http://stackoverflow.com/questions/7619058/convert-a-byte-array-to-integer-in-java-and-vise-versa
+*/
+
 /**
  * Created by lucien on 11/6/15.
  */
@@ -24,15 +30,32 @@ public class LegacyModuleI2cDevice {
     }
     public void writeByte(int memAddress, byte data){
         byte[] dataArray= {data};
-        write(memAddress,dataArray);
+        write(memAddress, dataArray);
     }
+
+    public void writeShort(int memAddress, short data){
+        write(memAddress,ByteBuffer.allocate(2).putShort(data).array());
+        //writing array made from short
+    }
+
 
     public byte[] read(int memAddress, int length){
         while(legacyModule.isI2cPortInReadMode(port)){}
         legacyModule.enableI2cReadMode(port, i2cAddress, memAddress, length);
         return legacyModule.getCopyOfReadBuffer(port);
     }
-    public byte readByte(int memAddress){
-        return read(memAddress, 1)[0];
+
+    public byte readByte(int memAddress) throws Exception{
+        byte[] values=read(memAddress, 1);
+        if(values.length > 0){
+            return read(memAddress, 1)[0];
+        }
+
+        //TODO: find better way to do the empty read catching
+        throw new Exception("Read did not return any values");
+    }
+
+    public short readShort(int memAddress){
+        return ByteBuffer.wrap(read(memAddress, 2)).getShort();
     }
 }
