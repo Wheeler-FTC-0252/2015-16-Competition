@@ -11,12 +11,12 @@ http://stackoverflow.com/questions/7619058/convert-a-byte-array-to-integer-in-ja
 /**
  * Created by lucien on 11/6/15.
  */
-public class LegacyModuleI2cDevice {
+public class LegacyModuleI2cDeviceOld {
     private LegacyModule legacyModule;
     private int port;
     private int i2cAddress;
 
-    public LegacyModuleI2cDevice(LegacyModule lModule, int port, int i2cAddress){
+    public LegacyModuleI2cDeviceOld(LegacyModule lModule, int port, int i2cAddress){
         legacyModule=lModule;
         this.port = port;
         this.i2cAddress=i2cAddress;
