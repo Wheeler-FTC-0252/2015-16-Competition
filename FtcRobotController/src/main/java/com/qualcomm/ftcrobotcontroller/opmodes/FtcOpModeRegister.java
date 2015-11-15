@@ -57,6 +57,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
     manager.register("ultrasoundSensor",ultrasoundSensor.class);
+    manager.register("compass2", CompassSensor2Test.class);
     /*
     manager.register("NullOp", NullOp.class);
 
