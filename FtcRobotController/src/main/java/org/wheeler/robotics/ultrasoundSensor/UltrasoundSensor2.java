@@ -72,5 +72,9 @@ public class UltrasoundSensor2 implements I2cPortReadyCallback{
         return TypeConversion.byteArrayToShort(data, ByteOrder.LITTLE_ENDIAN);
     }
 
-    public void portIsReady(int i) {}
+    public void portIsReady(int port) {
+        this.lModule.setI2cPortActionFlag(port);
+        this.lModule.readI2cCacheFromController(port);
+        this.lModule.writeI2cPortFlagOnlyToController(port);
+    }
 }
