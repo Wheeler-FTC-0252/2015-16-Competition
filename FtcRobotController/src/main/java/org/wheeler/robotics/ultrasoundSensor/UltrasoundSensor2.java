@@ -25,7 +25,6 @@ public class UltrasoundSensor2 implements I2cPortReadyCallback{
 
 
     public UltrasoundSensor2(LegacyModule legacyModule, int physicalPort) {
-        legacyModule.enableI2cReadMode(physicalPort, 2, 65, 5);
         this.lModule = legacyModule;
         this.readCache = legacyModule.getI2cReadCache(physicalPort);
         this.readLock = legacyModule.getI2cReadCacheLock(physicalPort);
