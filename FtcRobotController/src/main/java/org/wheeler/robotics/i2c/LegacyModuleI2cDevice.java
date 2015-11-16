@@ -36,7 +36,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
         legacyModule.registerForI2cPortReadyCallback(this, physicalPort);
     }
 
-    public void write(int address, byte[] data) {
+    public void writeData(int address, byte[] data) {
         this.lModule.enableI2cWriteMode(this.port, i2cAddress, address, data.length);
 
         try {
@@ -51,12 +51,12 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
 
     public void writeByte(int address, byte data){
         byte[] dataArray = {data};
-        write(address, dataArray);
+        writeData(address, dataArray);
     }
 
     public void writeShort(int address, short data){
         byte[] dataArray = TypeConversion.shortToByteArray(data,ByteOrder.LITTLE_ENDIAN);
-        write(address,dataArray);
+        writeData(address, dataArray);
     }
 
     public byte[] read(int address, int length) {
