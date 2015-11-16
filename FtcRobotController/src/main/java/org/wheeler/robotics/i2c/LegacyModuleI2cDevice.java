@@ -23,6 +23,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     private final int port;
     private final LegacyModule lModule;
     private final int i2cAddress;
+    private final int IO_START = 4;
 
     public LegacyModuleI2cDevice(LegacyModule legacyModule, int physicalPort, int i2cAddress) {
         this.lModule = legacyModule;
@@ -35,12 +36,12 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
         legacyModule.registerForI2cPortReadyCallback(this, physicalPort);
     }
 
-    public void write(int address, byte[] data) {
+    public void writeData(int address, byte[] data) {
         this.lModule.enableI2cWriteMode(this.port, i2cAddress, address, data.length);
 
         try {
             this.writeLock.lock();
-            for(byte ii=0; ii<data.length; ii++){
+            for(byte ii=IO_START; ii<IO_START+data.length; ii++){
                 this.writeCache[ii] = data[ii];
             }
         } finally {
@@ -50,12 +51,12 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
 
     public void writeByte(int address, byte data){
         byte[] dataArray = {data};
-        write(address, dataArray);
+        writeData(address, dataArray);
     }
 
     public void writeShort(int address, short data){
         byte[] dataArray = TypeConversion.shortToByteArray(data,ByteOrder.LITTLE_ENDIAN);
-        write(address,dataArray);
+        writeData(address, dataArray);
     }
 
     public byte[] read(int address, int length) {
@@ -63,7 +64,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
         byte[] readVal;
         try {
             this.readLock.lock();
-            readVal = Arrays.copyOf(this.readCache, this.readCache.length);
+            readVal = Arrays.copyOfRange(this.readCache, IO_START, (IO_START-1) + length);
         } finally {
             this.readLock.unlock();
         }
