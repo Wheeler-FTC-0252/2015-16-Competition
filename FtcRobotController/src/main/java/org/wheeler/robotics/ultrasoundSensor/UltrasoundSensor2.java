@@ -35,46 +35,67 @@ public class UltrasoundSensor2 implements I2cPortReadyCallback{
     }
 
     private void startMeasurement() {
-        this.lModule.enableI2cWriteMode(this.port, I2C_ADDRESS, WRITE_ADDRESS, 1);
-
+        //this.lModule.enableI2cWriteMode(this.port, I2C_ADDRESS, WRITE_ADDRESS, 1);
         try {
             this.writeLock.lock();
-            this.writeCache[0] = (byte)WRITE_VALUE;
+            this.writeCache[4] = (byte)WRITE_VALUE;
         } finally {
             this.writeLock.unlock();
         }
     }
 
+    /*
     private void enableDataRead() {
         this.lModule.enableI2cReadMode(this.port, I2C_ADDRESS, READ_ADDRESS, 2);
     }
+    */
 
     private byte[] readData() {
         byte[] readVal;
         try {
             this.readLock.lock();
-            readVal = Arrays.copyOf(this.readCache, this.readCache.length);
+            readVal = Arrays.copyOfRange(this.readCache, 4, 6);
         } finally {
             this.readLock.unlock();
         }
         return readVal;
     }
 
-    public short readRaw() throws Exception {
+    public byte[] readArray() throws Exception {
+        performAction("write", this.port, this.I2C_ADDRESS, this.WRITE_ADDRESS, 1);
         startMeasurement();
+
         try {
             Thread.sleep(300);
         } catch(InterruptedException e){
             throw new Exception("Sleep thread failed");
         }
-        enableDataRead();
-        byte[] data = readData();
+
+        performAction("read",this.port,this.I2C_ADDRESS, this.READ_ADDRESS, 2);
+        return readData();
+    }
+
+    public short readRaw() throws Exception {
+        byte[] data = readArray();
         return TypeConversion.byteArrayToShort(data, ByteOrder.LITTLE_ENDIAN);
+    }
+
+    private void performAction(String actionName, int port, int i2cAddress, int memAddress, int memLength) {
+        if (actionName.equalsIgnoreCase("read")) this.lModule.enableI2cReadMode(port, i2cAddress, memAddress, memLength);
+        if (actionName.equalsIgnoreCase("write")) this.lModule.enableI2cWriteMode(port, i2cAddress, memAddress, memLength);
+
+        this.lModule.setI2cPortActionFlag(port);
+        this.lModule.writeI2cCacheToController(port);
+        this.lModule.readI2cCacheFromController(port);
     }
 
     public void portIsReady(int port) {
         this.lModule.setI2cPortActionFlag(port);
         this.lModule.readI2cCacheFromController(port);
         this.lModule.writeI2cPortFlagOnlyToController(port);
+    }
+
+    public byte[] getReadCache(){
+        return readCache;
     }
 }

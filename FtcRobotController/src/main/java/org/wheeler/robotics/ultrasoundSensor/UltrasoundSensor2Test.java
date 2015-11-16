@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 public class UltrasoundSensor2Test extends OpMode {
     UltrasoundSensor2 uSensor;
     short readData;
+    byte[] readValues;
+
     public void init() {
         uSensor= new UltrasoundSensor2(hardwareMap.legacyModule.get("lModule"),4);
     }
@@ -17,7 +19,17 @@ public class UltrasoundSensor2Test extends OpMode {
             readData = uSensor.readRaw();
             telemetry.addData("raw data", readData);
         } catch (Exception e){
-            telemetry.addData("sleep stage", "failed!");
+            telemetry.addData("sleep stage", "failed!: " + e.toString());
         }
+
+        try {
+            readValues = uSensor.readArray();
+            for(int ii=0; ii<readValues.length; ii++){
+                telemetry.addData("val " + ii, readValues[ii]);
+            }
+        } catch (Exception e){
+            telemetry.addData("val read", "failed!: " + e.toString());
+        }
+        //telemetry.addData("read length", uSensor.getReadCache().length);
     }
 }
