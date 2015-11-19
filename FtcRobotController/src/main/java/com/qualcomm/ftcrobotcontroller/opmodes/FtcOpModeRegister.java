@@ -38,7 +38,6 @@ import org.wheeler.robotics.compassSensor.CompassSensor2Test;
 import org.wheeler.robotics.compassSensor.CompassSensor3Test;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor2;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor2Test;
-import org.wheeler.robotics.ultrasoundSensor.ultrasoundSensor;
 
 /**
  * Register Op Modes
@@ -63,7 +62,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("compass3", CompassSensor3Test.class);
     manager.register("ultrasoundSensor2",UltrasoundSensor2Test.class);
     manager.register("compass2", CompassSensor2Test.class);
-    manager.register("ultrasoundSensor", UltrasoundSensor2.class);
+    manager.register("UltrasoundSensor", UltrasoundSensor2.class);
     /*
     manager.register("NullOp", NullOp.class);
 

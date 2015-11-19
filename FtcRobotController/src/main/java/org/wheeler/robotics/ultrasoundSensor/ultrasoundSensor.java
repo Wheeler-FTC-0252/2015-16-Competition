@@ -7,7 +7,7 @@ import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
 /**
  * Created by lucien on 11/12/15.
  */
-public class ultrasoundSensor extends OpMode {
+public class UltrasoundSensor extends OpMode {
     LegacyModuleI2cDevice ultrasoundSensor;
     public void init() {
         ultrasoundSensor=new LegacyModuleI2cDevice(hardwareMap.legacyModule.get("lModule"),1,0x70);
