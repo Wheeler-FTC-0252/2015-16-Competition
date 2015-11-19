@@ -20,8 +20,8 @@ public class UltrasoundSensor2 implements I2cPortReadyCallback{
     private final LegacyModule lModule;
     private final int I2C_ADDRESS=0x70;
     private final int WRITE_ADDRESS=224;
-    private final int WRITE_VALUE=81;
     private final int READ_ADDRESS=225;
+    private final byte WRITE_VALUE=81;
 
 
     public UltrasoundSensor2(LegacyModule legacyModule, int physicalPort) {
