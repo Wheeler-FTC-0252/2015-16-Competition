@@ -6,7 +6,7 @@ import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
 /**
  * Created by lucien on 11/19/15.
  */
-public class UltrasoundSensor3 extends OpMode {
+public class UltrasoundSensor3Test extends OpMode {
     LegacyModuleI2cDevice uSensor;
     private final int PORT=4;
     private final int I2C_ADDRESS=0x70;
