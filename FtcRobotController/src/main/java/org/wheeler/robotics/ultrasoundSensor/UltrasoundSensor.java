@@ -21,7 +21,7 @@ public class UltrasoundSensor extends OpMode {
             telemetry.addData("sleep", e.toString());
         }
 
-        telemetry.addData("direct", ultrasoundSensor.read(225,2).length);
+        telemetry.addData("direct", ultrasoundSensor.readData(225,2).length);
         try {
             telemetry.addData("distance", ultrasoundSensor.readShort(225));
         } catch (Exception e) {
