@@ -59,7 +59,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
         writeData(address, dataArray);
     }
 
-    public byte[] read(int address, int length) {
+    public byte[] readData(int address, int length) {
         this.lModule.enableI2cReadMode(this.port, i2cAddress, address, length);
         byte[] readVal;
         try {
@@ -73,7 +73,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
 
     public byte readByte(int address) throws Exception{
         int length = 1;
-        byte[] data = read(address,length);
+        byte[] data = readData(address,length);
 
         // catching faulty returns
         if(data.length>length){
@@ -89,7 +89,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     }
 
     public short readShort(int address) {
-        byte[] data = read(address, 2);
+        byte[] data = readData(address, 2);
         return TypeConversion.byteArrayToShort(data, ByteOrder.LITTLE_ENDIAN);
     }
 
