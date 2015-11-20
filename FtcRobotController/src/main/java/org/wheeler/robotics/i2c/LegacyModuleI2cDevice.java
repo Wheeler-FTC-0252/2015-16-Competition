@@ -41,8 +41,8 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
 
         try {
             this.writeLock.lock();
-            for(byte ii=IO_START; ii<IO_START+data.length; ii++){
-                this.writeCache[ii] = data[ii];
+            for(byte ii=0; ii<data.length; ii++){
+                this.writeCache[ii+IO_START] = data[ii];
             }
         } finally {
             this.writeLock.unlock();
