@@ -16,9 +16,9 @@ http://stackoverflow.com/questions/7619058/convert-a-byte-array-to-integer-in-ja
  * Created by lucien on 11/6/15.
  */
 public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback {
-    private final byte[] readCache;
+    public final byte[] readCache;
     private final Lock readLock;
-    private final byte[] writeCache;
+    public final byte[] writeCache;
     private final Lock writeLock;
     private final int port;
     private final LegacyModule lModule;
