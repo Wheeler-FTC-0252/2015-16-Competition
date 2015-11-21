@@ -1,6 +1,7 @@
 package org.wheeler.robotics.i2c;
 
 import com.qualcomm.robotcore.hardware.I2cController;
+import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.LegacyModule;
 import com.qualcomm.robotcore.util.TypeConversion;
 
@@ -21,23 +22,23 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     private final byte[] writeCache;
     private final Lock writeLock;
     private final int port;
-    private final LegacyModule lModule;
+    private final I2cDevice i2cDevice;
     private final int i2cAddress;
     private final int IO_START = 4;
 
     public LegacyModuleI2cDevice(LegacyModule legacyModule, int physicalPort, int i2cAddress) {
-        this.lModule = legacyModule;
-        this.readCache = legacyModule.getI2cReadCache(physicalPort);
-        this.readLock = legacyModule.getI2cReadCacheLock(physicalPort);
-        this.writeCache = legacyModule.getI2cWriteCache(physicalPort);
-        this.writeLock = legacyModule.getI2cWriteCacheLock(physicalPort);
+        this.i2cDevice = new I2cDevice(legacyModule,physicalPort);
+        this.readCache = i2cDevice.getI2cReadCache();
+        this.readLock = i2cDevice.getI2cReadCacheLock();
+        this.writeCache = i2cDevice.getI2cWriteCache();
+        this.writeLock = i2cDevice.getI2cWriteCacheLock();
         this.port = physicalPort;
         this.i2cAddress=i2cAddress;
-        legacyModule.registerForI2cPortReadyCallback(this, physicalPort);
+        i2cDevice.registerForI2cPortReadyCallback(this);
     }
 
     public void writeData(int address, byte[] data) {
-        this.lModule.enableI2cWriteMode(this.port, i2cAddress, address, data.length);
+        this.i2cDevice.enableI2cWriteMode(i2cAddress, address, data.length);
 
         try {
             this.writeLock.lock();
@@ -60,7 +61,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     }
 
     public byte[] readData(int address, int length) {
-        this.lModule.enableI2cReadMode(this.port, i2cAddress, address, length);
+        this.i2cDevice.enableI2cReadMode(i2cAddress, address, length);
         byte[] readVal;
         try {
             this.readLock.lock();
@@ -94,8 +95,8 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     }
 
     public void portIsReady(int port) {
-        this.lModule.setI2cPortActionFlag(port);
-        this.lModule.readI2cCacheFromController(port);
-        this.lModule.writeI2cPortFlagOnlyToController(port);
+        this.i2cDevice.setI2cPortActionFlag();
+        this.i2cDevice.readI2cCacheFromController();
+        this.i2cDevice.writeI2cPortFlagOnlyToController();
     }
 }
