@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by lucien on 10/28/15.
  */
-public class drive extends OpMode {
+public class CompBotDrive extends OpMode {
     DcMotor[] leftMotors;
     double leftMotorSpeed;
     DcMotor[] rightMotors;
