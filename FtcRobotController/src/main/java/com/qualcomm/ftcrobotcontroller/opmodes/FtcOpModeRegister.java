@@ -33,7 +33,9 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
-import org.wheeler.robotics.compBot.drive;
+
+import org.wheeler.robotics.compBot.CompBotDrive;
+import org.wheeler.robotics.treadBot.TreadBotDrive;
 
 /**
  * Register Op Modes
@@ -55,7 +57,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
-    manager.register ("drive", drive.class);
+    manager.register("TreadBotDrive", TreadBotDrive.class);
+    manager.register ("CompBotDrive", CompBotDrive.class);
     /*
     manager.register("NullOp", NullOp.class);
 
@@ -69,7 +72,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
-    manager.register("MR Gyro Test", MRGyroTest.class);
+    //manager.register("MR Gyro Test", MRGyroTest.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
