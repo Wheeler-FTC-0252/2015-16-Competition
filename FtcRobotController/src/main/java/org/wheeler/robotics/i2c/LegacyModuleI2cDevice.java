@@ -48,6 +48,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
         } finally {
             this.writeLock.unlock();
         }
+        this.i2cDevice.writeI2cCacheToController();
     }
 
     public void writeByte(int address, byte data){
@@ -61,6 +62,7 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     }
 
     public byte[] readData(int address, int length) {
+        this.i2cDevice.readI2cCacheFromController();
         this.i2cDevice.enableI2cReadMode(i2cAddress, address, length);
         byte[] readVal;
         try {
