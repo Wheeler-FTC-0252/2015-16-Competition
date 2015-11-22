@@ -62,8 +62,8 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     }
 
     public byte[] readData(int address, int length) {
-        this.i2cDevice.readI2cCacheFromController();
         this.i2cDevice.enableI2cReadMode(i2cAddress, address, length);
+        this.i2cDevice.readI2cCacheFromController();
         byte[] readVal;
         try {
             this.readLock.lock();
