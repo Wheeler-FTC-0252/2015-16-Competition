@@ -1,5 +1,6 @@
 package org.wheeler.robotics.i2c;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cController;
 import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.LegacyModule;
@@ -21,18 +22,16 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     private final Lock readLock;
     public final byte[] writeCache;
     private final Lock writeLock;
-    private final int port;
     private final I2cDevice i2cDevice;
     private final int i2cAddress;
     private final int IO_START = 4;
 
-    public LegacyModuleI2cDevice(LegacyModule legacyModule, int physicalPort, int i2cAddress) {
-        this.i2cDevice = new I2cDevice(legacyModule,physicalPort);
+    public LegacyModuleI2cDevice(HardwareMap hardwareMap, String deviceName, int i2cAddress) {
+        this.i2cDevice =  hardwareMap.i2cDevice.get(deviceName);
         this.readCache = i2cDevice.getI2cReadCache();
         this.readLock = i2cDevice.getI2cReadCacheLock();
         this.writeCache = i2cDevice.getI2cWriteCache();
         this.writeLock = i2cDevice.getI2cWriteCacheLock();
-        this.port = physicalPort;
         this.i2cAddress=i2cAddress;
         i2cDevice.registerForI2cPortReadyCallback(this);
     }
@@ -48,7 +47,6 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
         } finally {
             this.writeLock.unlock();
         }
-        this.i2cDevice.writeI2cCacheToController();
     }
 
     public void writeByte(int address, byte data){
@@ -62,7 +60,6 @@ public class LegacyModuleI2cDevice implements I2cController.I2cPortReadyCallback
     }
 
     public byte[] readData(int address, int length) {
-        this.i2cDevice.readI2cCacheFromController();
         this.i2cDevice.enableI2cReadMode(i2cAddress, address, length);
         byte[] readVal;
         try {
