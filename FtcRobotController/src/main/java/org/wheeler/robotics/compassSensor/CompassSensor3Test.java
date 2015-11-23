@@ -10,7 +10,7 @@ import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
 public class CompassSensor3Test extends OpMode {
     LegacyModuleI2cDevice cSensor;
     public void init() {
-        cSensor=new LegacyModuleI2cDevice(hardwareMap.legacyModule.get("lModule"),1,2);
+        cSensor=new LegacyModuleI2cDevice(hardwareMap,"cSensor",2);
     }
 
     public void loop() {

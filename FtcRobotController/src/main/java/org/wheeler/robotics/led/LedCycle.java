@@ -14,7 +14,7 @@ public class LedCycle extends OpMode {
     private final int RGB_ADDRESS=0x6e;
 
     public void init() {
-        led = new LegacyModuleI2cDevice(hardwareMap.legacyModule.get("lModule"),4, I2C_ADDRESS);
+        led = new LegacyModuleI2cDevice(hardwareMap,"led", I2C_ADDRESS);
         led.writeData(0x6f,new byte[] {});
     }
 
