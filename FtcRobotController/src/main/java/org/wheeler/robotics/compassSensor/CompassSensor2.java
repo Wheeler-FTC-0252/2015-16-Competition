@@ -75,11 +75,11 @@ public class CompassSensor2 extends CompassSensor implements I2cPortReadyCallbac
     public void setMode(CompassMode mode) {
         if(this.compassMode != mode) {
             this.compassMode = mode;
-            this.startMeasurement();
+            this.calibrate();
         }
     }
 
-    private void startMeasurement() {
+    private void calibrate() {
         this.isWrite = true;
         int var1 = this.compassMode == CompassMode.CALIBRATION_MODE?67:0;
         this.lModule.enableI2cWriteMode(this.port, 2, 65, 1);
@@ -93,7 +93,7 @@ public class CompassSensor2 extends CompassSensor implements I2cPortReadyCallbac
 
     }
 
-    private void enableRead() {
+    private void startMeasurment() {
         if(this.compassMode == CompassMode.MEASUREMENT_MODE) {
             this.lModule.enableI2cReadMode(this.port, 2, 65, 5);
         }
@@ -122,7 +122,7 @@ public class CompassSensor2 extends CompassSensor implements I2cPortReadyCallbac
         this.lModule.setI2cPortActionFlag(this.port);
         this.lModule.readI2cCacheFromController(this.port);
         if(this.isWrite) {
-            this.enableRead();
+            this.startMeasurment();
             this.lModule.writeI2cCacheToController(this.port);
         } else {
             this.lModule.writeI2cPortFlagOnlyToController(this.port);
