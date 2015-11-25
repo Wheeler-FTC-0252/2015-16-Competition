@@ -1,13 +1,14 @@
 package org.wheeler.robotics.ultrasoundSensor;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
+
+import org.wheeler.robotics.i2c.I2cDevice;
 
 /**
  * Created by lucien on 11/19/15.
  */
 public class UltrasoundSensor3Test extends OpMode {
-    LegacyModuleI2cDevice uSensor;
+    I2cDevice uSensor;
     private final int PORT=4;
     private final int I2C_ADDRESS=0x70;
     private final int WRITE_ADDRESS=224;
@@ -15,7 +16,7 @@ public class UltrasoundSensor3Test extends OpMode {
     private final byte WRITE_VALUE=81;
 
     public void init() {
-        uSensor = new LegacyModuleI2cDevice(hardwareMap.legacyModule.get("lModule"), PORT, I2C_ADDRESS);
+        uSensor = new I2cDevice(hardwareMap, "ultra", I2C_ADDRESS);
     }
 
     public void loop() {
