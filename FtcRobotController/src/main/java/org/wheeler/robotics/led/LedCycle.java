@@ -2,19 +2,19 @@ package org.wheeler.robotics.led;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
+import org.wheeler.robotics.i2c.I2cDevice;
 
 /**
  * Created by lucien on 11/19/15.
  */
 public class LedCycle extends OpMode {
-    LegacyModuleI2cDevice led;
+    I2cDevice led;
     byte[] values;
     private final int I2C_ADDRESS=0x00;
     private final int RGB_ADDRESS=0x6e;
 
     public void init() {
-        led = new LegacyModuleI2cDevice(hardwareMap.legacyModule.get("lModule"),4, I2C_ADDRESS);
+        led = new I2cDevice(hardwareMap,"led", I2C_ADDRESS);
         led.writeData(0x6f,new byte[] {});
     }
 
