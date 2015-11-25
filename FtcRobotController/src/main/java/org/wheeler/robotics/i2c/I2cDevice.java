@@ -16,9 +16,9 @@ import java.util.concurrent.locks.Lock;
 //TODO: TRY USING BUFFERS INSTEAD - LESS CONFUSING?
 
 public class I2cDevice  implements I2cController.I2cPortReadyCallback {
-    private final byte[] readCache;
+    public final byte[] readCache;
     private final Lock readLock;
-    private final byte[] writeCache;
+    public final byte[] writeCache;
     private final Lock writeLock;
     private final com.qualcomm.robotcore.hardware.I2cDevice i2cDevice;
     private final int i2cAddress;
