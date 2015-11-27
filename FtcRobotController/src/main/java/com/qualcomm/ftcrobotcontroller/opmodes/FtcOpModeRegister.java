@@ -40,6 +40,7 @@ import org.wheeler.robotics.led.LedCycle;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor2;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor2Test;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor4Test;
+import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor5Test;
 
 /**
  * Register Op Modes
@@ -61,6 +62,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
+    manager.register("US5", UltrasoundSensor5Test.class);
     manager.register("US4", UltrasoundSensor4Test.class);
     manager.register("LedCycle", LedCycle.class);
     manager.register("compass3", CompassSensor3Test.class);
