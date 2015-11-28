@@ -15,8 +15,9 @@ public class TreadBotDrive extends OpMode {
     public void init() {
         leftMotor=hardwareMap.dcMotor.get("left");
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        
         rightMotor=hardwareMap.dcMotor.get("right");
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
     public void loop() {
