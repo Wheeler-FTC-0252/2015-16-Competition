@@ -18,7 +18,6 @@ public class UltrasoundSensor5Test extends OpMode {
 
     public void init() {
         ds = new Wire(hardwareMap,"uSensor", 0x70);
-
     }
 
     public void start() {
@@ -30,25 +29,20 @@ public class UltrasoundSensor5Test extends OpMode {
 
     public void loop() {
         if ((System.currentTimeMillis() - pingTime) > 100){
-            ds.requestFrom(0,2);
-            ds.beginWrite(0x51);
-            ds.write(0);
+            ds.requestFrom(225,2);
+            long micros = ds.micros();
+            distance = ds.readHL();
+            if (distance < 760){
+                readCount++;
+                telemetry.addData("Count", readCount);
+                telemetry.addData("Time", micros);
+                telemetry.addData("cm", distance);
+            }
+
+            ds.beginWrite(224);
+            ds.write(81);
             ds.endWrite();
             pingTime = System.currentTimeMillis();
-        }
-
-        if (ds.responseCount() > 0) {
-            ds.getResponse();
-            if (ds.isRead()) {
-                long micros = ds.micros();
-                distance = ds.readHL();
-                if (distance < 760){
-                    readCount++;
-                    telemetry.addData("Count", readCount);
-                    telemetry.addData("Time", micros/1000);
-                    telemetry.addData("cm", distance);
-                }
-            }
         }
     }
 
