@@ -2,6 +2,7 @@ package org.wheeler.robotics.treadBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
  * Created by lucien on 11/20/15.
@@ -19,9 +20,10 @@ public class TreadBotDrive extends OpMode {
     public void init() {
         leftMotor=hardwareMap.dcMotor.get("left");
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        
+        leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         rightMotor=hardwareMap.dcMotor.get("right");
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
     public void loop() {
