@@ -11,8 +11,8 @@ public class TreadBotDrive extends OpMode {
     double leftMotorSpeed;
     DcMotor rightMotor;
     double rightMotorSpeed;
-    double gain = 0.5;
-    double gainFactor = 2;
+    double driveGainFactor = 1.5;
+    double driveGain = 1/ driveGainFactor;
     String previousDPad="none";
 
 
@@ -27,24 +27,24 @@ public class TreadBotDrive extends OpMode {
     public void loop() {
         if (gamepad1.dpad_up) {
             if (!previousDPad.equalsIgnoreCase("up")){
-                gain = gain * gainFactor;
+                driveGain = driveGain * driveGainFactor;
                 previousDPad = "up";
             }
         } else if (gamepad1.dpad_down) {
             if (!previousDPad.equalsIgnoreCase("down")) {
-                gain = gain/gainFactor;
+                driveGain = driveGain / driveGainFactor;
                 previousDPad = "down";
             }
         } else {
             previousDPad = "none";
         }
 
-        if (gain>1){
-            gain = 1;
+        if (driveGain >1){
+            driveGain = 1;
         }
 
-        leftMotorSpeed=gamepad1.left_stick_y*gain;
-        rightMotorSpeed=gamepad1.right_stick_y*gain;
+        leftMotorSpeed=gamepad1.left_stick_y * driveGain;
+        rightMotorSpeed=gamepad1.right_stick_y * driveGain;
 
         leftMotor.setPower(leftMotorSpeed);
         rightMotor.setPower(rightMotorSpeed);
