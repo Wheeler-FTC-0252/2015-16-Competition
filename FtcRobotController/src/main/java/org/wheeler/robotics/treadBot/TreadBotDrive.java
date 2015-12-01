@@ -23,7 +23,7 @@ public class TreadBotDrive extends OpMode {
     double armRaiseGain = 1;
     DcMotor armRotateMotor;
     double armRotateMotorSpeed;
-    double armRotateGain = 0.1;
+    double armRotateGain = 0.05;
 
 
     public void init() {
