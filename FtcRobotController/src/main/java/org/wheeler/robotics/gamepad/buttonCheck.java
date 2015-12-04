@@ -7,11 +7,12 @@ package org.wheeler.robotics.gamepad;
  * @version 0.1
  */
 public final class buttonCheck {
-    private buttonCheck(){} //don't want instantiation
+    boolean previousValue;
+    public buttonCheck(){}
 
-     public static boolean checkButton(boolean buttonValue, Boolean previousValue){
+     public boolean checkButton(boolean buttonValue){
          boolean returnVal = false;
-         if (buttonValue!=previousValue && buttonValue) {
+         if (buttonValue != previousValue && buttonValue) {
              returnVal = true;
          }
          previousValue = buttonValue;
