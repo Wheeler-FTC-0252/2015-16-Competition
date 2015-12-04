@@ -11,7 +11,7 @@ public final class buttonCheck {
 
      public static boolean checkButton(boolean buttonValue, Boolean previousValue){
          boolean returnVal = false;
-         if (buttonValue!=previousValue) {
+         if (buttonValue!=previousValue && buttonValue) {
              returnVal = true;
          }
          previousValue = buttonValue;
