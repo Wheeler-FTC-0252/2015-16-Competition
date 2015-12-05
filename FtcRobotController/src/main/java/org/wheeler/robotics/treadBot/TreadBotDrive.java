@@ -3,6 +3,7 @@ package org.wheeler.robotics.treadBot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by lucien on 11/20/15.
@@ -25,6 +26,16 @@ public class TreadBotDrive extends OpMode {
     double armRotateMotorSpeed;
     double armRotateGain = 0.05;
 
+    //RELEASE
+    Servo releaseLeftServo;
+    boolean leftBumper = false;
+    boolean previousLeftBumper = false;
+    Servo releaseRightServo;
+    boolean rightBumper = false;
+    boolean previousRightBumper = false;
+    double releaseServoStart = 0;
+    double releaseServoExtended = 0.85;
+    double releaseServoMax = 1;
 
     public void init() {
         //DRIVE
@@ -41,6 +52,17 @@ public class TreadBotDrive extends OpMode {
         armRotateMotor=hardwareMap.dcMotor.get("armRotate");
         armRotateMotor.setDirection(DcMotor.Direction.REVERSE);
         armRotateMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+        //RELEASE
+        releaseLeftServo = hardwareMap.servo.get("releaseLeft");
+        releaseLeftServo.setDirection(Servo.Direction.FORWARD);
+        releaseLeftServo.scaleRange(releaseServoStart, releaseServoMax);
+        releaseLeftServo.setPosition(releaseServoStart);
+
+        releaseRightServo = hardwareMap.servo.get("releaseRight");
+        releaseRightServo.setDirection(Servo.Direction.REVERSE);
+        releaseRightServo.scaleRange(releaseServoStart,releaseServoMax);
+        releaseRightServo.setPosition(releaseServoStart);
     }
 
     public void loop() {
@@ -77,5 +99,33 @@ public class TreadBotDrive extends OpMode {
 
         armRaiseMotor.setPower(armRaiseMotorSpeed);
         armRotateMotor.setPower(armRotateMotorSpeed);
+
+        //------------------------------RELEASE-------------------------------\\
+        leftBumper = gamepad2.left_bumper;
+        telemetry.addData("leftBumper", leftBumper);
+        telemetry.addData("previousLeftBumper", previousLeftBumper);
+        if (leftBumper && previousLeftBumper!= leftBumper) {
+            telemetry.addData("left", "is different");
+            if (releaseLeftServo.getPosition() != releaseServoStart) {
+                telemetry.addData("left", "to start");
+                releaseLeftServo.setPosition(releaseServoStart);
+            } else {
+                telemetry.addData("left", "to extend");
+                releaseLeftServo.setPosition(releaseServoExtended);
+            }
+        }
+        telemetry.addData("leftPos", releaseLeftServo.getPosition());
+        previousLeftBumper=leftBumper;
+
+        rightBumper = gamepad2.right_bumper;
+        if (rightBumper && previousRightBumper != rightBumper) {
+            if (releaseRightServo.getPosition() != releaseServoStart){
+                releaseRightServo.setPosition(releaseServoStart);
+            }
+            else {
+                releaseRightServo.setPosition(releaseServoExtended);
+            }
+        }
+        previousRightBumper = rightBumper;
     }
 }
