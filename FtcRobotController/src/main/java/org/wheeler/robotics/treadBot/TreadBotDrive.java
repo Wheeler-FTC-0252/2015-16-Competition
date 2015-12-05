@@ -24,7 +24,9 @@ public class TreadBotDrive extends OpMode {
     double armRaiseGain = 1;
     DcMotor armRotateMotor;
     double armRotateMotorSpeed;
-    double armRotateGain = 0.05;
+    double armRotateGainFactor=1.5;
+    double armRotateGain = 1/(armRotateGainFactor*4);
+    String previousDPad2 = "none";
 
     //RELEASE
     Servo releaseLeftServo;
@@ -91,8 +93,26 @@ public class TreadBotDrive extends OpMode {
         rightMotor.setPower(rightMotorSpeed);
 
         //------------------------------ARM-----------------------------------\\
-        armRaiseMotorSpeed=gamepad2.right_stick_y * armRaiseGain;
-        armRotateMotorSpeed =gamepad2.left_stick_y * armRotateGain;
+        if (gamepad2.dpad_up) {
+            if (!previousDPad2.equalsIgnoreCase("up")) {
+                armRotateGain = armRotateGain * armRotateGainFactor;
+                previousDPad2 = "up";
+            }
+        } else if (gamepad2.dpad_down) {
+            if (!previousDPad2.equalsIgnoreCase("down")) {
+                armRotateGain = armRotateGain / armRotateGainFactor;
+                previousDPad2 = "down";
+            }
+        } else {
+            previousDPad2 = "none";
+        }
+
+        if (armRotateGain > 1){
+            armRotateGain = 1;
+        }
+
+        armRaiseMotorSpeed = gamepad2.right_stick_y * armRaiseGain;
+        armRotateMotorSpeed = gamepad2.left_stick_y * armRotateGain;
 
         telemetry.addData("raise",armRaiseMotorSpeed);
         telemetry.addData("rotate",armRotateMotorSpeed);
