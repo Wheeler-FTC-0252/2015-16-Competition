@@ -7,10 +7,11 @@ package org.wheeler.robotics.gamepad;
  * @version 0.1
  */
 public final class buttonCheck {
+
     boolean previousValue;
     public buttonCheck(){}
 
-     public boolean checkButton(boolean buttonValue){
+    public boolean checkButton(boolean buttonValue){
          boolean returnVal = false;
          if (buttonValue != previousValue && buttonValue) {
              returnVal = true;
@@ -18,5 +19,5 @@ public final class buttonCheck {
          previousValue = buttonValue;
 
          return buttonValue;
-     }
+    }
 }
