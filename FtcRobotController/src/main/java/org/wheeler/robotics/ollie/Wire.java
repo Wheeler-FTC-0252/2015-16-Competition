@@ -184,6 +184,15 @@ public class Wire implements I2cController.I2cPortReadyCallback {
         return uLimit - uNext;
     }
 
+    public int[] read(int regNumber, int length) {
+        int[] values = new int[length];
+
+        for (int ii=0; ii<length; ii++){
+            values[ii]=read();
+        }
+        return values;
+    }
+
     public int read() {
         if (uNext >= uLimit) return 0;
         return uCache[uNext++] & 0xff;
