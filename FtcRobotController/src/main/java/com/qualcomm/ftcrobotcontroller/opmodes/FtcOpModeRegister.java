@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.wheeler.robotics.compassSensor.CompassSensor2Test;
 import org.wheeler.robotics.compassSensor.CompassSensor3Test;
 import org.wheeler.robotics.led.LedCycle;
+import org.wheeler.robotics.led.LedFull;
 import org.wheeler.robotics.led.LedProgram;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor2;
 import org.wheeler.robotics.ultrasoundSensor.UltrasoundSensor2Test;
@@ -67,6 +68,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("US4", UltrasoundSensor4Test.class);
     manager.register("LedCycle", LedCycle.class);
     manager.register("LedProgram", LedProgram.class);
+    manager.register("LedFull", LedFull.class);
     manager.register("compass3", CompassSensor3Test.class);
     manager.register("ultrasoundSensor2",UltrasoundSensor2Test.class);
     manager.register("compass2", CompassSensor2Test.class);

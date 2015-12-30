@@ -18,14 +18,22 @@ public class LedProgram extends OpMode {
     }
 
     public void start(){
-        ds.write(0x70,18);
-        ds.write(0x71,0);
-    }
+        ds.write(0x6f,0);
 
+        ds.beginWrite(0x70);
+        ds.write(18);
+        ds.write(0);
+        ds.write(0);
+        ds.endWrite();
+    }
     public void loop() {
-        ds.requestFrom(0x67,3);
+        /*ds.requestFrom(0x67, 3);
         telemetry.addData("Red", ds.read());
         telemetry.addData("Green", ds.read());
-        telemetry.addData("Blue", ds.read());
+        telemetry.addData("Blue", ds.read());*/
     }
-}
+
+    public void stop(){
+        ds.write(0x6f,0);
+        ds.close();
+    }}
