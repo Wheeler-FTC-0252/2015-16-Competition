@@ -29,7 +29,7 @@ public class BlinkMLed {
     }
 
     public void stopScript(){
-        write(0x6f, new int[]{});
+        write(0x6f, new int[]{0});
     }
 
     private void write(int register, int[] values){
