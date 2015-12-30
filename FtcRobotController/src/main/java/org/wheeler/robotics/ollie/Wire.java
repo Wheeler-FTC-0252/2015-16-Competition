@@ -2,19 +2,21 @@ package org.wheeler.robotics.ollie;
 
 /**
  * Created by Olavi Kamppari on 10/25/2015.
- *
+ * Edited by Lucien Gaitskell
+ * 
  * Revisions:
  * 151107 by OAK:
  *      1) in portIsReady fixed problem related to repeated read of same address
  *      2) in executeCommands added missing line to stop idle polling
  */
-        import android.util.Log;
 
-        import com.qualcomm.robotcore.hardware.HardwareMap;
-        import com.qualcomm.robotcore.hardware.I2cController;
-        import com.qualcomm.robotcore.hardware.I2cDevice;
+import android.util.Log;
 
-        import java.util.concurrent.locks.Lock;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cController;
+import com.qualcomm.robotcore.hardware.I2cDevice;
+
+import java.util.concurrent.locks.Lock;
 
 public class Wire implements I2cController.I2cPortReadyCallback {
 // --------------------------------- CONSTANTS -------------------------------------------------
