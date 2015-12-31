@@ -18,7 +18,7 @@ public class MaxSonarSensorTest extends OpMode {
 
     public void loop() {
         long pingTime = System.currentTimeMillis();
-        telemetry.addData("cm", ds.read());
+        telemetry.addData("cm", ds.getDistance());
         telemetry.addData("time", System.currentTimeMillis()-pingTime);
     }
 
