@@ -19,6 +19,10 @@ public class BlinkMLed {
         this.led = new Wire(hardwareMap, ledName, i2cAddress);
     }
 
+    public BlinkMLed(HardwareMap hardwareMap, String ledName){
+        this(hardwareMap, ledName, 0x09);
+    }
+
     //------------WRITE------------\\
     public void setColor(int red, int green, int blue){
         write(0x6e, new int[]{red,green,blue});
