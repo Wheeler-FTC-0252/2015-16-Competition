@@ -1,0 +1,1 @@
+adb logcat -v raw -s "distance" | tee ~/Desktop/us.txt
