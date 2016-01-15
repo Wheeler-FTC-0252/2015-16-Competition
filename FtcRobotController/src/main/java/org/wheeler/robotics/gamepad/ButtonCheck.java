@@ -7,9 +7,10 @@ package org.wheeler.robotics.gamepad;
  * @version 0.1
  */
 public final class ButtonCheck {
+    public boolean state=false;
+
     private boolean value;
     private boolean previousValue=false;
-    private boolean state;
 
     public void updateValue(boolean value) {
         this.value = value;
@@ -30,9 +31,5 @@ public final class ButtonCheck {
         }
         previousValue = value;
         return value;
-    }
-
-    public boolean getState(){
-        return state;
     }
 }
