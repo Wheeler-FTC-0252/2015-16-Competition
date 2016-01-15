@@ -6,7 +6,7 @@ package org.wheeler.robotics.gamepad;
  * @author Lucien Gaitskell
  * @version 0.1
  */
-public final class buttonCheck {
+public final class ButtonCheck {
     public boolean value;
     private boolean previousValue;
 
