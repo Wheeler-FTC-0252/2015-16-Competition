@@ -8,7 +8,7 @@ package org.wheeler.robotics.gamepad;
  */
 public final class ButtonCheck {
     private boolean value;
-    private boolean previousValue;
+    private boolean previousValue=false;
     private boolean state;
 
     public void updateValue(boolean value) {
