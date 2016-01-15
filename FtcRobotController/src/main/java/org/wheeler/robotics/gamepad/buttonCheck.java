@@ -7,17 +7,19 @@ package org.wheeler.robotics.gamepad;
  * @version 0.1
  */
 public final class buttonCheck {
+    public boolean value;
+    private boolean previousValue;
 
-    boolean previousValue;
-    public buttonCheck(){}
+    public void updateValue(boolean value) {
+        this.value = value;
+    }
 
-    public boolean checkButton(boolean buttonValue){
-         boolean returnVal = false;
-         if (buttonValue != previousValue && buttonValue) {
-             returnVal = true;
-         }
-         previousValue = buttonValue;
-
-         return buttonValue;
+    public boolean checkButton(){
+        boolean returnVal = false;
+        if (value != previousValue && value) {
+            returnVal = true;
+        }
+        previousValue = value;
+        return value;
     }
 }
