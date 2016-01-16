@@ -1,5 +1,7 @@
 package org.wheeler.robotics.gamepad;
 
+import android.util.Log;
+
 /**
  * Created by lucien on 12/3/15.
  *
@@ -8,9 +10,9 @@ package org.wheeler.robotics.gamepad;
  */
 public final class ButtonCheck {
     public boolean state=false;
+    public boolean previousValue=false;
 
     private boolean value;
-    private boolean previousValue=false;
 
     public void updateValue(boolean value) {
         this.value = value;
@@ -19,6 +21,9 @@ public final class ButtonCheck {
     public boolean checkButton(){
         boolean returnVal = false;
         if (value != previousValue && value) {
+            Log.d("CheckButtonStatus", "value != previousValue");
+            Log.d("CheckButtonStatus", "value == " + String.valueOf(value));
+            Log.d("CheckButtonStatus", "previousValue == " + String.valueOf(previousValue));
             returnVal = true;
 
             //Change state
@@ -30,6 +35,6 @@ public final class ButtonCheck {
             }
         }
         previousValue = value;
-        return value;
+        return previousValue;
     }
 }
