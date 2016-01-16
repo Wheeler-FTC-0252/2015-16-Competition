@@ -34,6 +34,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
+import org.wheeler.robotics.ollie.UltrasoundSensorOllieDouble;
 
 /**
  * Register Op Modes
@@ -57,6 +58,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
       //manager.register("MaxSonarSensorTest", MaxSonarSensorTest.class);
+      manager.register("UltrasoundSensorOllieDouble", UltrasoundSensorOllieDouble.class);
       //manager.register("LedProgram2", LedProgram2.class);
 
       /*
