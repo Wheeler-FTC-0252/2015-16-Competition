@@ -2,6 +2,8 @@ package org.wheeler.robotics.ultrasoundSensor;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.wheeler.robotics.library.ultrasoundSensor.MaxSonarSensor;
+
 /**
  * Created by lucien on 12/30/15.
  *

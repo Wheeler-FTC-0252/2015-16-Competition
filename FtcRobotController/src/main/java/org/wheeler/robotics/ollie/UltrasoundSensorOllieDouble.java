@@ -5,6 +5,8 @@ import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.wheeler.robotics.library.ollie.Wire;
+
 /**
  * Created by lucien on 12/30/15.
  *

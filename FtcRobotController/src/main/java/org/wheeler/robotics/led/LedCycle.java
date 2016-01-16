@@ -2,7 +2,7 @@ package org.wheeler.robotics.led;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.wheeler.robotics.i2c.I2cDevice;
+import org.wheeler.robotics.library.i2c.I2cDevice;
 
 /**
  * Created by lucien on 11/19/15.

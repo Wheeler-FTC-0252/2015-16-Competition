@@ -2,6 +2,8 @@ package org.wheeler.robotics.ollie;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.wheeler.robotics.library.ollie.Wire;
+
 /**
  * Created by lucien on 12/30/15.
  *

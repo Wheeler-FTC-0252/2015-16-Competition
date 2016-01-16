@@ -1,4 +1,4 @@
-package org.wheeler.robotics.dcmotor;
+package org.wheeler.robotics.library.dcmotor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;

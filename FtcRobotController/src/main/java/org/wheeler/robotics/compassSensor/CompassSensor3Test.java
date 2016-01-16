@@ -2,7 +2,7 @@ package org.wheeler.robotics.compassSensor;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.wheeler.robotics.i2c.LegacyModuleI2cDevice;
+import org.wheeler.robotics.library.i2c.LegacyModuleI2cDevice;
 
 /**
  * Created by lucien on 11/16/15.

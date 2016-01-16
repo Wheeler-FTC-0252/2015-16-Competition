@@ -2,7 +2,8 @@ package org.wheeler.robotics.led;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.wheeler.robotics.ollie.Wire;
+import org.wheeler.robotics.library.led.BlinkMLed;
+import org.wheeler.robotics.library.ollie.Wire;
 
 /**
  * Created by lucien on 11/27/15.

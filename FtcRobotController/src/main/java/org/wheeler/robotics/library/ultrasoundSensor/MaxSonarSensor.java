@@ -1,10 +1,10 @@
-package org.wheeler.robotics.ultrasoundSensor;
+package org.wheeler.robotics.library.ultrasoundSensor;
 
 import android.util.Log;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.wheeler.robotics.ollie.Wire;
+import org.wheeler.robotics.library.ollie.Wire;
 
 /**
  * Created by lucien on 12/30/15.
