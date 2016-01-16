@@ -11,6 +11,7 @@ import android.util.Log;
 public final class ButtonCheck {
     public boolean state=false;
     public boolean previousValue=false;
+    public boolean debug=false;
 
     private boolean value;
 
@@ -21,10 +22,13 @@ public final class ButtonCheck {
     public boolean checkButton(){
         boolean returnVal = false;
         if (value != previousValue && value) {
-            Log.d("CheckButtonStatus", "value != previousValue");
-            Log.d("CheckButtonStatus", "value == " + String.valueOf(value));
-            Log.d("CheckButtonStatus", "previousValue == " + String.valueOf(previousValue));
             returnVal = true;
+
+            if (debug) {
+                Log.d("CheckButtonStatus", "value != previousValue");
+                Log.d("CheckButtonStatus", "value == " + String.valueOf(value));
+                Log.d("CheckButtonStatus", "previousValue == " + String.valueOf(previousValue));
+            }
 
             //Change state
             if (state){
@@ -35,6 +39,9 @@ public final class ButtonCheck {
             }
         }
         previousValue = value;
+
+        if (debug) Log.d("CheckButtonStatus", "Returning: " + String.valueOf(previousValue));
+        
         return returnVal;
     }
 }
