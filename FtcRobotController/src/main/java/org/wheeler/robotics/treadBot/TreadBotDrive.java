@@ -70,6 +70,8 @@ public class TreadBotDrive extends OpMode {
     }
 
     public void loop() {
+
+        //-----------------------DRIVE------------------------------\\
         if (gamepad1.dpad_up) {
             if (!previousDPad.equalsIgnoreCase("up")) {
                 driveGain = driveGain * driveGainFactor;
