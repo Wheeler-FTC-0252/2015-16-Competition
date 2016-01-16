@@ -35,6 +35,6 @@ public final class ButtonCheck {
             }
         }
         previousValue = value;
-        return previousValue;
+        return returnVal;
     }
 }
