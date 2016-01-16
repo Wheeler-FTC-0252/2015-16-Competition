@@ -19,15 +19,15 @@ public class MaxSonarSensor extends Thread {
     private int returnDistance=0;
     private int previousDistance=0;
     private long pingTime;
+    public Thread thread;
     public boolean running=true;
     public boolean log=false;
     public String logTag = "distance";
 
     public MaxSonarSensor(HardwareMap hardwareMap, String name, int address){
         ds = new Wire(hardwareMap, name, address);
-
-        new Thread(this).start();
-    }
+        this.start();
+     }
 
     public MaxSonarSensor(HardwareMap hardwareMap, String name){
         this(hardwareMap, name, 0xE0);
@@ -40,38 +40,33 @@ public class MaxSonarSensor extends Thread {
         pingTime = System.currentTimeMillis();
 
         while (running) {
-            read();
-        }
-    }
+            if ((System.currentTimeMillis() - pingTime) > 100) {
+                ds.requestFrom(225, 2);
+                ds.beginWrite(224);
+                ds.write(81);
+                ds.endWrite();
+                pingTime = System.currentTimeMillis();
+            }
 
-    private synchronized void read() {
-        if ((System.currentTimeMillis() - pingTime) > 100) {
-            ds.requestFrom(225, 2);
-            ds.beginWrite(224);
-            ds.write(81);
-            ds.endWrite();
-            pingTime = System.currentTimeMillis();
-        }
+            if (ds.responseCount() > 0) {
+                ds.getResponse();
+                if (ds.isRead()) {
+                    long micros = ds.micros();
+                    distance = ds.readHL();
+                    if (distance < 760) {
+                        readCount++;
+                        returnDistance=distance;
 
-        if (ds.responseCount() > 0) {
-            ds.getResponse();
-            if (ds.isRead()
-                    ) {
-                long micros = ds.micros();
-                distance = ds.readHL();
-                if (distance < 760) {
-                    readCount++;
-                    returnDistance=distance;
+                        if (log){
+                            Log.d(logTag, String.valueOf(distance));
 
-                    if (log){
-                        Log.d(logTag, String.valueOf(distance));
-
-                        int change = Math.abs(previousDistance-returnDistance);
-                        if (change>20) {
-                            Log.d("distanceWarn", "Thats a big change! (" + String.valueOf(change) + ")");
+                            int change = Math.abs(previousDistance-returnDistance);
+                            if (change>20) {
+                                Log.d("distanceWarn", "Thats a big change! (" + String.valueOf(change) + ")");
+                            }
                         }
+                        previousDistance=returnDistance;
                     }
-                    previousDistance=returnDistance;
                 }
             }
         }
