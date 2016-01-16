@@ -65,7 +65,7 @@ public class TreadBotDrive extends OpMode {
 
         releaseRightServo = hardwareMap.servo.get("releaseRight");
         releaseRightServo.setDirection(Servo.Direction.REVERSE);
-        releaseRightServo.scaleRange(releaseServoStart,releaseServoMax);
+        releaseRightServo.scaleRange(releaseServoStart, releaseServoMax);
         releaseRightServo.setPosition(releaseServoStart);
     }
 
