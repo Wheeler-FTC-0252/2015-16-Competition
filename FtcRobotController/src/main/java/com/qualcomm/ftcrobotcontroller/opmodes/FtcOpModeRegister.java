@@ -34,14 +34,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.wheeler.robotics.compassSensor.CompassSensor2Test;
-import org.wheeler.robotics.compassSensor.CompassSensor3Test;
-import org.wheeler.robotics.led.LedCycle;
-import org.wheeler.robotics.led.LedFull;
-import org.wheeler.robotics.led.LedProgram;
-import org.wheeler.robotics.led.LedProgram2;
-import org.wheeler.robotics.ollie.UltrasoundSensorOllie;
-import org.wheeler.robotics.ultrasoundSensor.MaxSonarSensorTest;
 
 /**
  * Register Op Modes
@@ -64,8 +56,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-      manager.register("MaxSonarSensorTest", MaxSonarSensorTest.class);
-      manager.register("LedProgram2", LedProgram2.class);
+      //manager.register("MaxSonarSensorTest", MaxSonarSensorTest.class);
+      //manager.register("LedProgram2", LedProgram2.class);
 
       /*
     manager.register("NullOp", NullOp.class);
