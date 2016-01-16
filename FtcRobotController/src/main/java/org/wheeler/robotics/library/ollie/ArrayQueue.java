@@ -1,4 +1,4 @@
-package org.wheeler.robotics.ollie;
+package org.wheeler.robotics.library.ollie;
 
 /**
  * Created by Olavi Kamppari on 10/7/2015.

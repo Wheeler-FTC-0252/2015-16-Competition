@@ -1,4 +1,4 @@
-package org.wheeler.robotics.i2c;
+package org.wheeler.robotics.library.i2c;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cController;
