@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.wheeler.robotics.library.gamepad.ButtonCheck;
 
 /**
  * Created by lucien on 11/20/15.
@@ -39,6 +40,16 @@ public class TreadBotDrive extends OpMode {
     double releaseServoExtended = 0.85;
     double releaseServoMax = 1;
 
+    //PLOW
+    int plowExtended=100;
+    int plowStart=10;
+
+    ButtonCheck leftPlowButton;
+    Servo leftPlow;
+
+    ButtonCheck rightPlowButton;
+    Servo rightPlow;
+
     public void init() {
         //DRIVE
         leftMotor = hardwareMap.dcMotor.get("left");
@@ -67,6 +78,15 @@ public class TreadBotDrive extends OpMode {
         releaseRightServo.setDirection(Servo.Direction.REVERSE);
         releaseRightServo.scaleRange(releaseServoStart, releaseServoMax);
         releaseRightServo.setPosition(releaseServoStart);
+
+        //PLOW
+        leftPlowButton = new ButtonCheck();
+        leftPlow = hardwareMap.servo.get("leftPlow");
+        leftPlow.setDirection(Servo.Direction.FORWARD);
+
+        rightPlowButton = new ButtonCheck();
+        rightPlow = hardwareMap.servo.get("rightPlow");
+        rightPlow.setDirection(Servo.Direction.FORWARD);
     }
 
     public void loop() {
@@ -151,5 +171,28 @@ public class TreadBotDrive extends OpMode {
             }
         }
         previousRightBumper = rightBumper;
+
+        //----------------------------PLOW--------------------------------------\\
+        leftPlowButton.updateValue(gamepad1.left_bumper);
+        if (leftPlowButton.checkButton()){
+            if (leftPlowButton.state){
+                leftPlow.setPosition(plowExtended);
+            }
+
+            if (leftPlowButton.state){
+                leftPlow.setPosition(plowStart);
+            }
+        }
+
+        rightPlowButton.updateValue(gamepad1.left_bumper);
+        if (rightPlowButton.checkButton()){
+            if (rightPlowButton.state){
+                rightPlow.setPosition(plowExtended);
+            }
+
+            if (rightPlowButton.state){
+                rightPlow.setPosition(plowStart);
+            }
+        }
     }
 }
