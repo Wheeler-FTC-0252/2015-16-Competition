@@ -13,20 +13,27 @@ public class DcMotorSync extends Thread {
     private DcMotor motorMaster;
     private DcMotor motorSlave;
 
-    public double targetPosition;
-    public double currentPosition;
+    private boolean running=true;
+    private double targetPosition;
+    private double currentPosition;
     private double speed;
     private double speedMultiplier=1/100;
 
-    private DcMotorSync(DcMotor motorMaster, DcMotor motorSlave, boolean reversed) {
+    public DcMotorSync(DcMotor motorMaster, DcMotor motorSlave, boolean reversed) {
         this.motorMaster = motorMaster;
         this.motorSlave = motorSlave;
         if (reversed) {
             this.speedMultiplier = this.speedMultiplier * -1;
         }
+
+        this.start();
     }
 
-    public DcMotorSync setup(DcMotor motorA, DcMotor motorB, boolean reversed){
+    public DcMotorSync(DcMotor motorMaster, DcMotor motorSlave){
+        this(motorMaster, motorSlave, false);
+    }
+
+    /*public DcMotorSync setup(DcMotor motorA, DcMotor motorB, boolean reversed){
         DcMotorSync sync = new DcMotorSync(motorA, motorB, reversed);
         sync.start();
         return sync;
@@ -34,10 +41,10 @@ public class DcMotorSync extends Thread {
 
     public DcMotorSync setup(DcMotor motorA, DcMotor motorB){
         return setup(motorA, motorB, false);
-    }
+    }*/
 
     public void run() {
-        while (true){
+        while (running){
             targetPosition = motorMaster.getCurrentPosition();
             currentPosition = motorSlave.getCurrentPosition();
             speed = (targetPosition - currentPosition)*speedMultiplier;
@@ -46,4 +53,7 @@ public class DcMotorSync extends Thread {
         }
     }
 
+    public void close() {
+        this.running = false;
+    }
 }
