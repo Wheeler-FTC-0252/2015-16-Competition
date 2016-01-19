@@ -25,8 +25,9 @@ public class TreadBotAutonomous extends OpMode {
 
 
     //  DS DRIVE
-    int OPTIMAL_RATIO = 1;
+    double OPTIMAL_RATIO = 214./325.; // 214/325 (L / R)
     int MAX_DISTANCE = 100;
+    double MOTOR_GAIN = 3.5;
 
     //  COLOR SENSOR
     int LOWER_BOUND = 100;
@@ -36,8 +37,8 @@ public class TreadBotAutonomous extends OpMode {
     double ROTATE_SPEED = 0.25;
 
     //  SHORT DS
-    double OPTIMAL_DISTANCE=10;
-    double DISTANCE_PRECISION =10;
+    double OPTIMAL_DISTANCE=10.0;
+    double DISTANCE_PRECISION =10.0;
 
     //------------------------------OTHER
     //DRIVE
@@ -90,8 +91,11 @@ public class TreadBotAutonomous extends OpMode {
     public void start() {
         //------------------------------INITIAL DRIVE (not guided)
         initialDrive();
+        leftRightSync.close();
 
         //  DEBUG WAIT
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
         Log.d("TBAutoStatus", "Starting wait");
         try {
             wait(1000); //For testing purposes
@@ -103,7 +107,18 @@ public class TreadBotAutonomous extends OpMode {
         //------------------------------LONG RANGE ULTRASOUND ENABLE
         feedbackDrive();
 
+        Log.d("TBAutoStatus", "leftRightSync.close()");
+
         //------------------------------ROTATE TO FACE WALL
+        Log.d("TBAutoStatus", "Resetting motor encoders");
+        leftDrive.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        leftDrive.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        rightDrive.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightDrive.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+        Log.d("TBAutoStatus", "Syncing motors (reverse)");
+        leftRightSync = new DcMotorSync(leftDrive,rightDrive, true);
+
         rotateToWall();
 
         //------------------------------CHECK FRONT DISTANCE
@@ -134,7 +149,10 @@ public class TreadBotAutonomous extends OpMode {
             int leftDistance = dsLeft.getDistance();
             int rightDistance = dsRight.getDistance();
 
-            double currentRatio = (double) leftDistance / (double) rightDistance;
+            double dsRatio = (double) leftDistance / (double) rightDistance;
+            double currentRatio = OPTIMAL_RATIO / dsRatio;
+            double leftSpeed = currentRatio*MOTOR_GAIN;
+            double rightSpeed = 1/leftSpeed;
 
             telemetry.addData("leftDistance", leftDistance);
             Log.d("TBAutoStatus", "leftDistance == " + String.valueOf(leftDistance));
@@ -142,26 +160,23 @@ public class TreadBotAutonomous extends OpMode {
             telemetry.addData("rightDistance", rightDistance);
             Log.d("TBAutoStatus", "rightDistance == " + String.valueOf(rightDistance));
 
-            telemetry.addData("ratio", currentRatio);
-            Log.d("TBAutoStatus", "currentRatio == " + String.valueOf(currentRatio));
+            telemetry.addData("ratio", dsRatio);
+            Log.d("TBAutoStatus", "dsRatio == " + String.valueOf(dsRatio));
 
-            telemetry.addData("optimalRatio / ratio", (double) OPTIMAL_RATIO / currentRatio);
-            Log.d("TBAutoStatus", "optimalRatio / currentRatio == " + String.valueOf(OPTIMAL_RATIO / currentRatio));
+            telemetry.addData("optimalRatio / ratio", OPTIMAL_RATIO / dsRatio);
+            Log.d("TBAutoStatus", "optimalRatio / dsRatio == " + String.valueOf(currentRatio));
+
+            telemetry.addData("leftSpeed", leftSpeed);
+            Log.d("TBAutoStatus", "leftSpeed == " + String.valueOf(leftSpeed));
+
+            telemetry.addData("rightSpeed", rightSpeed);
+            Log.d("TBAutoStatus", "rightSpeed == " + String.valueOf(rightSpeed));
         }
         Log.d("TBAutoStatus", "Middle sensor on the LINE!");
     }
 
     private void rotateToWall() {
-        leftRightSync.close();
-        Log.d("TBAutoStatus", "leftRightSync.close()");
         Log.d("TBAutoStatus", "Facing wall");
-        leftRightSync = new DcMotorSync(leftDrive,rightDrive, true);
-        Log.d("TBAutoStatus", "Syncing motors");
-        leftDrive.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        leftDrive.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        rightDrive.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightDrive.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        Log.d("TBAutoStatus", "Reset motors");
         leftDrive.setPower(ROTATE_SPEED);
         while ((middleColor.red()<LOWER_BOUND
                 && middleColor.green()<LOWER_BOUND
