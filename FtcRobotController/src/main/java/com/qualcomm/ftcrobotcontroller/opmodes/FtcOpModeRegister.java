@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.wheeler.robotics.compBot.CompBotDrive;
 import org.wheeler.robotics.treadBot.TreadBotAutonomous;
 import org.wheeler.robotics.treadBot.TreadBotDrive;
+import org.wheeler.robotics.treadBot.TreadBotGuided;
 
 /**
  * Register Op Modes
@@ -60,6 +61,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
       manager.register("TreadBotDrive", TreadBotDrive.class);
       manager.register("TreadBotAutonomous", TreadBotAutonomous.class);
+      manager.register("TreadBotGuided", TreadBotGuided.class);
     //manager.register ("CompBotDrive", CompBotDrive.class);
     /*
     manager.register("NullOp", NullOp.class);
