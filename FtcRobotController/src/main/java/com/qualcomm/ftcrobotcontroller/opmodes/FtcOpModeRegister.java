@@ -58,8 +58,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
-    manager.register("TreadBotDrive", TreadBotDrive.class);
-    manager.register("TreadBotAutonomous", TreadBotAutonomous.class);
+      manager.register("TreadBotDrive", TreadBotDrive.class);
+      manager.register("TreadBotAutonomous", TreadBotAutonomous.class);
     //manager.register ("CompBotDrive", CompBotDrive.class);
     /*
     manager.register("NullOp", NullOp.class);
