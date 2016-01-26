@@ -1,5 +1,7 @@
 package org.wheeler.robotics.treadBot;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -33,16 +35,20 @@ public class TreadBotDrive extends OpMode {
     Servo releaseLeftServo;
     boolean leftBumper = false;
     boolean previousLeftBumper = false;
+    boolean leftExtended = false; // used to stop plow collisions
+
     Servo releaseRightServo;
     boolean rightBumper = false;
     boolean previousRightBumper = false;
+    boolean rightExtended = false; // used to stop plow collisions
+
     double releaseServoStart = 0;
     double releaseServoExtended = 0.85;
     double releaseServoMax = 1;
 
     //PLOW
-    int plowExtended=100;
-    int plowStart=10;
+    double plowExtended=1;
+    double plowStart=0;
 
     ButtonCheck leftPlowButton;
     Servo leftPlow;
@@ -81,16 +87,18 @@ public class TreadBotDrive extends OpMode {
 
         //PLOW
         leftPlowButton = new ButtonCheck();
-        leftPlow = hardwareMap.servo.get("leftPlow");
+        leftPlow = hardwareMap.servo.get("plowLeft");
         leftPlow.setDirection(Servo.Direction.FORWARD);
+        leftPlow.setPosition(plowStart);
 
         rightPlowButton = new ButtonCheck();
-        rightPlow = hardwareMap.servo.get("rightPlow");
-        rightPlow.setDirection(Servo.Direction.FORWARD);
+        rightPlow = hardwareMap.servo.get("plowRight");
+        rightPlow.setDirection(Servo.Direction.REVERSE);
+        rightPlow.setPosition(plowStart);
+        Log.d("TBDriveStatus", "Finished INIT");
     }
 
     public void loop() {
-
         //-----------------------DRIVE------------------------------\\
         if (gamepad1.dpad_up) {
             if (!previousDPad.equalsIgnoreCase("up")) {
@@ -153,44 +161,53 @@ public class TreadBotDrive extends OpMode {
             if (releaseLeftServo.getPosition() != releaseServoStart) {
                 telemetry.addData("left", "to start");
                 releaseLeftServo.setPosition(releaseServoStart);
+
+                leftExtended = false;
             } else {
                 telemetry.addData("left", "to extend");
                 releaseLeftServo.setPosition(releaseServoExtended);
+
+                leftExtended = true;
             }
         }
         telemetry.addData("leftPos", releaseLeftServo.getPosition());
         previousLeftBumper=leftBumper;
 
+
         rightBumper = gamepad2.right_bumper;
         if (rightBumper && previousRightBumper != rightBumper) {
             if (releaseRightServo.getPosition() != releaseServoStart){
                 releaseRightServo.setPosition(releaseServoStart);
+
+                rightExtended = false;
             }
             else {
                 releaseRightServo.setPosition(releaseServoExtended);
+
+                rightExtended = true;
             }
         }
         previousRightBumper = rightBumper;
 
         //----------------------------PLOW--------------------------------------\\
+        telemetry.addData("leftExtended", leftExtended);
         leftPlowButton.updateValue(gamepad1.left_bumper);
-        if (leftPlowButton.checkButton()){
+        if (leftPlowButton.checkButton() && leftExtended){
             if (leftPlowButton.state){
                 leftPlow.setPosition(plowExtended);
             }
-
-            if (leftPlowButton.state){
+            else {
                 leftPlow.setPosition(plowStart);
             }
         }
 
+        telemetry.addData("rightExtended", rightExtended);
         rightPlowButton.updateValue(gamepad1.left_bumper);
-        if (rightPlowButton.checkButton()){
+        if (rightPlowButton.checkButton() && rightExtended){
             if (rightPlowButton.state){
                 rightPlow.setPosition(plowExtended);
             }
-
-            if (rightPlowButton.state){
+            else {
                 rightPlow.setPosition(plowStart);
             }
         }
