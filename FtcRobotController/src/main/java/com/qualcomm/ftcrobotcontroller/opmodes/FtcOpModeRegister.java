@@ -39,6 +39,7 @@ import org.wheeler.robotics.treadBot.TreadBotAutonomous;
 import org.wheeler.robotics.treadBot.TreadBotDrive;
 import org.wheeler.robotics.treadBot.TreadBotGuided;
 import org.wheeler.robotics.treadBot.TreadBotFiveFeet;
+import org.wheeler.robotics.treadBot.sensorTests.TreadBotRGBRead;
 
 /**
  * Register Op Modes
@@ -63,6 +64,7 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("TreadBotDrive", TreadBotDrive.class);
       manager.register("TreadBotAutonomous", TreadBotAutonomous.class);
       manager.register("TreadBotGuided", TreadBotGuided.class);
+      manager.register("TreadBotRGBRead", TreadBotRGBRead.class);
       manager.register("TreadBotFiveFeet", TreadBotFiveFeet.class);
     //manager.register ("CompBotDrive", CompBotDrive.class);
     /*
