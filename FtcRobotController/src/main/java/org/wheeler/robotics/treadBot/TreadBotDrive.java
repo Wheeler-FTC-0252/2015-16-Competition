@@ -28,7 +28,7 @@ public class TreadBotDrive extends OpMode {
     DcMotor armRotateMotor;
     double armRotateMotorSpeed;
     double armRotateGainFactor=1.5;
-    double armRotateGain = 1/(armRotateGainFactor*4);
+    double armRotateGain = 1/(armRotateGainFactor*2);
     String previousDPad2 = "none";
 
     //RELEASE
@@ -43,11 +43,11 @@ public class TreadBotDrive extends OpMode {
     boolean rightExtended = false; // used to stop plow collisions
 
     double releaseServoStart = 0;
-    double releaseServoExtended = 0.85;
+    double releaseServoExtended = 0.8;
     double releaseServoMax = 1;
 
     //PLOW
-    double plowExtended=1;
+    double plowExtended=0.95;
     double plowStart=0;
 
     ButtonCheck leftPlowButton;
@@ -69,16 +69,18 @@ public class TreadBotDrive extends OpMode {
         //ARM
         armRaiseMotor = hardwareMap.dcMotor.get("armRaise");
         armRaiseMotor.setDirection(DcMotor.Direction.REVERSE);
+        armRaiseMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
         armRotateMotor = hardwareMap.dcMotor.get("armRotate");
         armRotateMotor.setDirection(DcMotor.Direction.REVERSE);
-        armRotateMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        armRotateMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
         //RELEASE
         releaseLeftServo = hardwareMap.servo.get("releaseLeft");
         releaseLeftServo.setDirection(Servo.Direction.FORWARD);
         releaseLeftServo.scaleRange(releaseServoStart, releaseServoMax);
         releaseLeftServo.setPosition(releaseServoStart);
+
 
         releaseRightServo = hardwareMap.servo.get("releaseRight");
         releaseRightServo.setDirection(Servo.Direction.REVERSE);
@@ -87,15 +89,22 @@ public class TreadBotDrive extends OpMode {
 
         //PLOW
         leftPlowButton = new ButtonCheck();
+        leftPlowButton.state=true;
         leftPlow = hardwareMap.servo.get("plowLeft");
         leftPlow.setDirection(Servo.Direction.FORWARD);
-        leftPlow.setPosition(plowStart);
+        leftPlow.setPosition(plowExtended);
 
         rightPlowButton = new ButtonCheck();
+        rightPlowButton.state=true;
         rightPlow = hardwareMap.servo.get("plowRight");
         rightPlow.setDirection(Servo.Direction.REVERSE);
-        rightPlow.setPosition(plowStart);
+        rightPlow.setPosition(plowExtended);
         Log.d("TBDriveStatus", "Finished INIT");
+    }
+
+    public void start() {
+        armRotateMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        armRaiseMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
     public void loop() {
@@ -146,8 +155,11 @@ public class TreadBotDrive extends OpMode {
         armRaiseMotorSpeed = gamepad2.right_stick_y * armRaiseGain;
         armRotateMotorSpeed = gamepad2.left_stick_y * armRotateGain;
 
-        telemetry.addData("raise",armRaiseMotorSpeed);
+        telemetry.addData("raise", armRaiseMotorSpeed);
+        telemetry.addData("raisePosition", armRaiseMotor.getCurrentPosition());
         telemetry.addData("rotate", armRotateMotorSpeed);
+        telemetry.addData("rotatePosition", armRotateMotor.getCurrentPosition());
+
 
         armRaiseMotor.setPower(armRaiseMotorSpeed);
         armRotateMotor.setPower(armRotateMotorSpeed);
