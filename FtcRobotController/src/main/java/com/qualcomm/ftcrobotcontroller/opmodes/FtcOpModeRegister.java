@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.wheeler.robotics.ollie.UltrasoundSensorOllieDouble;
+import org.wheeler.robotics.rgbSensor.AdafruitColorSensorTest;
 import org.wheeler.robotics.ultrasoundSensor.MaxSonarSensorTwoTest;
 
 /**
@@ -59,6 +60,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
       //manager.register("MaxSonarSensorTest", MaxSonarSensorTest.class);
+      manager.register("AdafruitColorSensorTest", AdafruitColorSensorTest.class);
       manager.register("MaxSonarSensorTwoTest", MaxSonarSensorTwoTest.class);
       manager.register("UltrasoundSensorOllieDouble", UltrasoundSensorOllieDouble.class);
       //manager.register("LedProgram2", LedProgram2.class);
