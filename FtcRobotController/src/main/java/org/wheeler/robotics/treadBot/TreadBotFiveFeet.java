@@ -11,8 +11,10 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  * @version 0.1
  */
 public class TreadBotFiveFeet extends OpMode {
-	double MOTOR_SPEED = 0.5;
-	int STOP_DISTANCE = 10000;
+	double ENCODER_MULTIPLIER = 10000.0/90.0;  // 10000 ticks = 90 cm  --> encoder ticks = cm * (10000/90)
+	double INITIAL_MOTOR_SPEED = 1;
+	double INITIAL_DISTANCE = 140 * ENCODER_MULTIPLIER;
+	double SLOW_DISTANCE = 40;
 
 	DcMotor leftMotor;
 	DcMotor rightMotor;
@@ -39,9 +41,9 @@ public class TreadBotFiveFeet extends OpMode {
 		telemetry.addData("Distance Left", leftPos);
 		telemetry.addData("Distance Right", rightPos);
 
-		if (leftPos < STOP_DISTANCE || rightPos < STOP_DISTANCE){
-			leftMotor.setPower(MOTOR_SPEED);
-			rightMotor.setPower(MOTOR_SPEED);
+		if (leftPos < INITIAL_DISTANCE || rightPos < INITIAL_DISTANCE){
+			leftMotor.setPower(INITIAL_MOTOR_SPEED);
+			rightMotor.setPower(INITIAL_MOTOR_SPEED);
 			telemetry.addData("Status",  "Still driving");
 		}
 		else {
