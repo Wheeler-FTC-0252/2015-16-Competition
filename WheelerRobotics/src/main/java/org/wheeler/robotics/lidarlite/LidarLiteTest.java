@@ -18,9 +18,10 @@ import org.wheeler.robotics.library.ollie.Wire;
 public class LidarLiteTest extends LinearOpMode {
 	II2cDeviceClient ls;
 	long writeTime;
+	int address=0x62;
 
 	public void runOpMode() throws InterruptedException {
-		this.ls = ClassFactory.createI2cDeviceClient(this, ClassFactory.createI2cDevice(hardwareMap.i2cDevice.get("lidar")), 0x62, false);
+		this.ls = ClassFactory.createI2cDeviceClient(this, ClassFactory.createI2cDevice(hardwareMap.i2cDevice.get("lidar")), address*2, false);
 
 		waitForStart();
 		ls.engage();

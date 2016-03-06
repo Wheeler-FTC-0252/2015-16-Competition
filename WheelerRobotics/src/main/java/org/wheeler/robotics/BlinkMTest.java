@@ -15,9 +15,10 @@ import org.swerverobotics.library.interfaces.TeleOp;
 @TeleOp()
 public class BlinkMTest extends LinearOpMode {
     II2cDeviceClient led;
+    int address=0x09;
 
     public void runOpMode() throws InterruptedException {
-        led = ClassFactory.createI2cDeviceClient(this, hardwareMap.i2cDevice.get("lidar"), 0x00, false);
+        led = ClassFactory.createI2cDeviceClient(this, hardwareMap.i2cDevice.get("lidar"), address*2, false);
         led.engage();
         waitOneFullHardwareCycle();
         Log.d("lidar", "LED Address: " + led.read8(0x61));
