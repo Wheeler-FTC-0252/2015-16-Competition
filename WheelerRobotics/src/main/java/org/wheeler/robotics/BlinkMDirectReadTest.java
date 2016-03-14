@@ -19,7 +19,7 @@ import java.util.concurrent.locks.Lock;
  */
 
 @TeleOp()
-public class BlinkMDirectTest extends LinearOpMode {
+public class BlinkMDirectReadTest extends LinearOpMode {
     // The port where your sensor is connected.
     int port = 0;
 
