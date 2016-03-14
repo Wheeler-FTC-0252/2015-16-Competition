@@ -1,4 +1,4 @@
-package org.wheeler.robotics;
+package org.wheeler.robotics.MaxSonar;
 
 import android.util.Log;
 
