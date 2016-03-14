@@ -3,6 +3,7 @@ package org.wheeler.robotics;
 import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 
 import org.swerverobotics.library.ClassFactory;
 import org.swerverobotics.library.interfaces.II2cDeviceClient;
@@ -14,20 +15,24 @@ import org.swerverobotics.library.interfaces.TeleOp;
 
 @TeleOp()
 public class BlinkMTest extends LinearOpMode {
-    II2cDeviceClient led;
+    I2cDeviceSynch led;
     int address=0x09;
 
     public void runOpMode() throws InterruptedException {
-        led = ClassFactory.createI2cDeviceClient(this, hardwareMap.i2cDevice.get("lidar"), address*2, false);
+        led = ClassFactory.createI2cDeviceSynch(hardwareMap.i2cDevice.get("lidar"), address*2);
+
+        waitForStart();
         led.engage();
         waitOneFullHardwareCycle();
         Log.d("lidar", "LED Address: " + led.read8(0x61));
-        waitForStart();
         led.write8(0x6f, 0);
         waitOneFullHardwareCycle();
-        while (this.opModeIsActive()) {
-            led.write(0x6e, new byte[]{5, 5, 5});
-        }
+        led.write(0x6e, new byte[]{100, 100, 5});
+        waitOneFullHardwareCycle();
+        Log.d("lidar", "Red: " + led.read(0x67,3)[0]
+            + ", Green: " + led.read(0x67,3)[1]
+            + ", Blue: " + led.read(0x67,3)[2]);
+        while (this.opModeIsActive()) {}
         led.disengage();
         led.close();
     }
