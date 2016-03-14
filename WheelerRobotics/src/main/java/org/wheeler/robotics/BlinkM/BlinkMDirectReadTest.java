@@ -42,18 +42,18 @@ public class BlinkMDirectReadTest extends LinearOpMode {
     // Be sure to read the requirements for the hardware you're using!
     // If you use an invalid address, you may make your device completely unusable.
 
-    DeviceInterfaceModule dim;
+    I2cDevice led;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         // set up the hardware devices we are going to use
-        dim = hardwareMap.deviceInterfaceModule.get("dim");
+        led = hardwareMap.i2cDevice.get("led");
 
-        readCache = dim.getI2cReadCache(port);
-        readLock = dim.getI2cReadCacheLock(port);
-        writeCache = dim.getI2cWriteCache(port);
-        writeLock = dim.getI2cWriteCacheLock(port);
+        readCache = led.getI2cReadCache();
+        readLock = led.getI2cReadCacheLock();
+        writeCache = led.getI2cWriteCache();
+        writeLock = led.getI2cWriteCacheLock();
 
         // wait for the start button to be pressed
         waitForStart();
@@ -62,9 +62,9 @@ public class BlinkMDirectReadTest extends LinearOpMode {
         // Start timing here
         long startTime = System.nanoTime();
 
-        performAction("read", port, currentAddress, memoryAddress, dataLength);
+        performAction("read", currentAddress, memoryAddress, dataLength);
 
-        while(!dim.isI2cPortReady(port)) {
+        while(!led.isI2cPortReady()) {
             telemetry.addData("I2cAddressChange", "waiting for the port to be ready...");
             sleep(1000);
         }
@@ -74,7 +74,7 @@ public class BlinkMDirectReadTest extends LinearOpMode {
         int count = 0;
         while (count<100000 && this.opModeIsActive()) {
             count++;
-            dim.readI2cCacheFromController(port);
+            led.readI2cCacheFromController();
             try {
             readLock.lock();
             if(readCache[0] != 0) {break;} // Cache has been updated, slave has written values
@@ -109,12 +109,12 @@ public class BlinkMDirectReadTest extends LinearOpMode {
     }
 
     // From LinearI2cAddressChange - made by MR
-    private void performAction(String actionName, int port, int i2cAddress, int memAddress, int memLength) {
-        if (actionName.equalsIgnoreCase("read")) dim.enableI2cReadMode(port, i2cAddress, memAddress, memLength);
-        if (actionName.equalsIgnoreCase("write")) dim.enableI2cWriteMode(port, i2cAddress, memAddress, memLength);
+    private void performAction(String actionName, int i2cAddress, int memAddress, int memLength) {
+        if (actionName.equalsIgnoreCase("read")) led.enableI2cReadMode(i2cAddress, memAddress, memLength);
+        if (actionName.equalsIgnoreCase("write")) led.enableI2cWriteMode(i2cAddress, memAddress, memLength);
 
-        dim.setI2cPortActionFlag(port);
-        dim.writeI2cCacheToController(port);
-        dim.readI2cCacheFromController(port);
+        led.setI2cPortActionFlag();
+        led.writeI2cCacheToController();
+        led.readI2cCacheFromController();
     }
 }
